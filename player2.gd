@@ -1,11 +1,15 @@
 extends Area2D
 
-@export var speed: int = 200  # Speed of the player in pixels per second.
+@export var speed: float = 200
+@export var rectangle_scene_path: String = "res://Rectangle.tscn"
 
 func _process(delta: float) -> void:
-	var motion: Vector2 = Vector2()
-	
-	# Capture player input to determine movement direction.
+	var motion := Vector2.ZERO
+	motion = handle_input(motion)  # Get the updated motion vector
+	move_player(motion, delta)
+	check_arena_bounds()
+
+func handle_input(motion: Vector2) -> Vector2:
 	if Input.is_action_pressed("player2_right"):
 		motion.x += 1
 	if Input.is_action_pressed("player2_left"):
@@ -14,22 +18,35 @@ func _process(delta: float) -> void:
 		motion.y += 1
 	if Input.is_action_pressed("player2_up"):
 		motion.y -= 1
+	if Input.is_action_just_pressed("player2_up"):
+		spawn_rectangle()
+		# motion.y += 1 # This line seems redundant and could cause unexpected movement.
+	return motion  # Return the updated motion vector
 
-
-
-	# Normalize the motion vector so diagonal movement isn't faster.
+func move_player(motion: Vector2, delta: float) -> void:
 	motion = motion.normalized() * speed * delta
-
-	# Update the player's position.
 	position += motion
 
-	# Access the 'Arena' sprite node and check dimensions.
-	var arena_node = get_parent().get_node("Arena") as Sprite2D
+func check_arena_bounds() -> void:
+	var arena_node := get_parent().get_node("Arena") as Sprite2D
 	if arena_node and arena_node.texture:
-		var arena_size = arena_node.texture.get_size()
-		var arena_width = arena_size.x
-		var arena_height = arena_size.y
+		var arena_size := arena_node.texture.get_size()
+		if position.x < 0 or position.x > arena_size.x or position.y < 0 or position.y > arena_size.y:
+			queue_free()
 
-		# Check if the player has moved outside the bounds of the arena.
-		if position.x < 0 or position.x > arena_width or position.y < 0 or position.y > arena_height:
-			queue_free()  # Remove the player from the scene if they fall off.
+func spawn_rectangle() -> void:
+	var rectangle_scene = load(rectangle_scene_path)  # Load the scene when needed.
+	if rectangle_scene is PackedScene:
+		var direction = Vector2.ZERO
+		if Input.is_action_pressed("player2_right"):
+			direction = Vector2.RIGHT
+		elif Input.is_action_pressed("player2_left"):
+			direction = Vector2.LEFT
+		elif Input.is_action_pressed("player2_down"):
+			direction = Vector2.DOWN
+		elif Input.is_action_pressed("player2_up"):
+			direction = Vector2.UP
+
+		var rectangle: Node2D = rectangle_scene.instantiate() as Node2D  # Explicitly cast to Node2D.
+		rectangle.position = position + direction * 50  # Adjust the 50 to your desired distance
+		get_parent().add_child(rectangle)
