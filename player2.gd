@@ -1,43 +1,21 @@
 extends Area2D
 
 @export var speed: int = 200  # Speed of the player in pixels per second.
-@export var rectangle_scene = preload("res://Rectangle.tscn")  # Path to the rectangle scene.
-
-
 
 func _process(delta: float) -> void:
 	var motion: Vector2 = Vector2()
 	
 	# Capture player input to determine movement direction.
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("player2_right"):
 		motion.x += 1
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("player2_left"):
 		motion.x -= 1
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("player2_down"):
 		motion.y += 1
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("player2_up"):
 		motion.y -= 1
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
 
 	# Normalize the motion vector so diagonal movement isn't faster.
 	motion = motion.normalized() * speed * delta
