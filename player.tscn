@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cct6etid465k"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_cvtf2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lm1s3"]
+radius = 181.0
+height = 362.0
+
+[sub_resource type="Gradient" id="Gradient_8grf8"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ong8v"]
+gradient = SubResource("Gradient_8grf8")
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_cvtf2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_lm1s3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.999995, -4.5)
+scale = Vector2(1.21875, 181)
+texture = SubResource("GradientTexture1D_ong8v")
