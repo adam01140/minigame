@@ -14,17 +14,16 @@ position = Vector2(1206, 654)
 scale = Vector2(2.33747, 1.7097)
 texture = SubResource("CompressedTexture2D_uswol")
 
-[node name="Player" parent="." instance=ExtResource("1_xpd42")]
+[node name="Player1" parent="." instance=ExtResource("1_xpd42")]
 position = Vector2(510, 428)
-disable_mode = 1
 
 [node name="Player2" parent="." instance=ExtResource("2_w2bb1")]
-position = Vector2(904, 552)
-disable_mode = 1
+position = Vector2(551, 561)
+disable_mode = 2
 
 [node name="Rectangle" parent="." instance=ExtResource("3_2fc8n")]
 position = Vector2(968, 391)
-disable_mode = 1
+disable_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1142, 648)

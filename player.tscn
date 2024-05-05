@@ -12,6 +12,7 @@ radius = 46.0
 height = 92.0
 
 [node name="Player" type="RigidBody2D"]
+disable_mode = 2
 gravity_scale = 0.0
 script = ExtResource("1_cvtf2")
 

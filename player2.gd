@@ -1,5 +1,4 @@
 extends RigidBody2D
-
 # Define collision layers and masks
 const PLAYER_COLLISION_LAYER = 1
 const PLAYER_COLLISION_MASK = 1
@@ -68,6 +67,10 @@ func spawn_rectangle() -> void:
 		else:  # Up or down
 			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 100  # Slightly to the right
 		
+		
+		spawned_rectangle.collision_layer = 2  # Rectangles affect layer 1
+		spawned_rectangle.collision_mask = 1   # Rectangles detect layer 1
+
 		get_parent().add_child(spawned_rectangle)
 		var timer = Timer.new()
 		timer.wait_time = 5
