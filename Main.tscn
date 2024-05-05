@@ -16,7 +16,7 @@ position = Vector2(583, 323)
 scale = Vector2(1.21667, 1.02778)
 texture = SubResource("CompressedTexture2D_uswol")
 
-[node name="Player" parent="." instance=ExtResource("1_xpd42")]
+[node name="Player1" parent="." instance=ExtResource("1_xpd42")]
 position = Vector2(243, 262)
 disable_mode = 1
 

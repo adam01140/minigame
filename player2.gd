@@ -5,7 +5,7 @@ extends RigidBody2D
 var last_direction = Vector2.ZERO  # Variable to store the last direction
 var spawned_rectangle = null  # Store the rectangle instance
 var push = 0
-
+var push1 = 0
 
 func _process(delta: float) -> void:
 	var motion := Vector2.ZERO
@@ -17,7 +17,9 @@ func _process(delta: float) -> void:
 
 func handle_input(motion: Vector2) -> Vector2:
 	
-	
+	if Player:
+		push1 = Player.push1
+		
 	
 	if Input.is_action_pressed("player2_right"):
 		
@@ -44,7 +46,26 @@ func handle_input(motion: Vector2) -> Vector2:
 func move_player(motion: Vector2, delta: float) -> void:
 	motion = motion.normalized() * speed * delta
 	position += motion
-
+	
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("arena"):
+		print("hey")
+		
+	if area.is_in_group("block"):
+		if push1 == 1:
+			position += Vector2(50, 0)
+			print(push1)
+		if push1 == 2:
+			position += Vector2(-50, 0)
+			print(push1)
+		if push1 == 3:
+			position += Vector2(0, 50)
+			print(push1)
+		if push1 == 4:
+			position += Vector2(0, -50)
+			print(push1)
+			
+			
 func check_arena_bounds() -> void:
 	var arena_node = get_parent().get_node("Arena") as Sprite2D
 	if arena_node and arena_node.texture:

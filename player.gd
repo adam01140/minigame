@@ -13,7 +13,7 @@ var spawned_rectangle2 = null  # Store the rectangle instance
 @export var push: String = "res://Player2.tscn"
 
 var push2 = Player2.push
-
+var push1 = 0
 
 func _process(delta: float) -> void:
 	var motion2: Vector2 = Vector2()
@@ -29,11 +29,15 @@ func handle_input(motion2: Vector2) -> Vector2:
 	if Input.is_action_pressed("ui_right"):
 		
 		motion2.x += 1
+		push1 = 1
 	if Input.is_action_pressed("ui_left"):
 		motion2.x -= 1
+		push1 = 2
 	if Input.is_action_pressed("ui_down"):
 		motion2.y += 1
+		push1 = 3
 	if Input.is_action_pressed("ui_up"):
+		push1 = 4
 		motion2.y -= 1
 
 	if motion2 != Vector2.ZERO:
@@ -95,22 +99,21 @@ func move_player(motion2: Vector2, delta: float) -> void:
 	position += motion2
 
 func _on_area_2d_area_entered(area):
-	if area.is_in_group("arena"):
-		print("hey")
+	
 		
 	if area.is_in_group("block"):
 		if push2 == 1:
 			position += Vector2(50, 0)
-			print(push2)
+			
 		if push2 == 2:
 			position += Vector2(-50, 0)
-			print(push2)
+			
 		if push2 == 3:
 			position += Vector2(0, 50)
-			print(push2)
+			
 		if push2 == 4:
 			position += Vector2(0, -50)
-			print(push2)
+			
 
 
 func check_arena_bounds() -> void:
