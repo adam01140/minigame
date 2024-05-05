@@ -58,7 +58,13 @@ func spawn_rectangle() -> void:
 	var rectangle_scene = load(rectangle_scene_path)
 	if rectangle_scene is PackedScene:
 		var rectangle = rectangle_scene.instantiate() as Node2D
-		rectangle.position = position + last_direction * 50
+		# Check the direction and adjust the spawning distance
+		if last_direction.x > 0:  # Moving right
+			rectangle.position = position + last_direction * 250
+		elif last_direction.x < 0:  # Moving left
+			rectangle.position = position + last_direction * 100
+		else:  # Up or down, use a default value (optional)
+			rectangle.position = position + last_direction * 100  # Adjust as needed
 		get_parent().add_child(rectangle)
 		print("Rectangle spawned at position: ", rectangle.position)
 	else:
