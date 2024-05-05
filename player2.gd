@@ -6,11 +6,13 @@ const PLAYER_COLLISION_MASK = 1
 
 @export var speed: float = 200
 @export var rectangle_scene_path: String = "res://Rectangle.tscn"
+var last_direction = Vector2.ZERO  # Variable to store the last direction
 
 func _ready():
 	# Configure collision layer and mask
 	set_collision_layer_value(PLAYER_COLLISION_LAYER, true)
 	set_collision_mask_value(PLAYER_COLLISION_MASK, true)
+	print("Ready! Check input map for 'rect_spawn'.")
 
 func _process(delta: float) -> void:
 	var motion := Vector2.ZERO
@@ -21,19 +23,21 @@ func _process(delta: float) -> void:
 func handle_input(motion: Vector2) -> Vector2:
 	if Input.is_action_pressed("player2_right"):
 		motion.x += 1
-		check_arena_bounds()
 	if Input.is_action_pressed("player2_left"):
 		motion.x -= 1
-		check_arena_bounds()
 	if Input.is_action_pressed("player2_down"):
 		motion.y += 1
-		check_arena_bounds()
 	if Input.is_action_pressed("player2_up"):
 		motion.y -= 1
-		check_arena_bounds()
+
+	if motion != Vector2.ZERO:
+		last_direction = motion.normalized()
+
 	if Input.is_action_just_pressed("rect_spawn"):
+		print("Spawning rectangle...")
 		spawn_rectangle()
-	return motion  # Return the updated motion vector
+
+	return motion
 
 func move_player(motion: Vector2, delta: float) -> void:
 	motion = motion.normalized() * speed * delta
@@ -47,26 +51,15 @@ func check_arena_bounds() -> void:
 			queue_free()
 
 func spawn_rectangle() -> void:
-	var rectangle_scene = load(rectangle_scene_path)  # Load the scene when needed.
+	if last_direction == Vector2.ZERO:
+		print("No movement direction to base rectangle spawn on.")
+		return
+
+	var rectangle_scene = load(rectangle_scene_path)
 	if rectangle_scene is PackedScene:
-		var direction = Vector2.ZERO
-		if Input.is_action_pressed("player2_right"):
-			direction = Vector2.RIGHT
-		elif Input.is_action_pressed("player2_left"):
-			direction = Vector2.LEFT
-		elif Input.is_action_pressed("player2_down"):
-			direction = Vector2.DOWN
-		elif Input.is_action_pressed("player2_up"):
-			direction = Vector2.UP
-
-		var rectangle: Node2D = rectangle_scene.instantiate() as Node2D  # Explicitly cast to Node2D.
-		rectangle.position = position + direction * 50  # Adjust the 50 to your desired distance
+		var rectangle = rectangle_scene.instantiate() as Node2D
+		rectangle.position = position + last_direction * 50
 		get_parent().add_child(rectangle)
-
-# Collision detection function
-func _on_collision_entered(body):
-	# Check if the colliding body is another player
-	if body.is_in_group("player"):
-		# Respond to the collision (e.g., stop movement, apply forces)
-		# For example:
-		linear_velocity = Vector2.ZERO
+		print("Rectangle spawned at position: ", rectangle.position)
+	else:
+		print("Failed to load rectangle scene.")
