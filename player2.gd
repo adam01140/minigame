@@ -55,26 +55,41 @@ func check_arena_bounds() -> void:
 
 func spawn_rectangle() -> void:
 	if last_direction == Vector2.ZERO:
-		return
+		return  # Don't spawn if there's no movement direction
 
 	var rectangle_scene = load(rectangle_scene_path)
 	if rectangle_scene is PackedScene:
 		spawned_rectangle = rectangle_scene.instantiate() as Node2D
-		spawned_rectangle.position = position + last_direction * 50
+		# Adjust spawn position based on movement direction
+		if last_direction.x < 0:
+			spawned_rectangle.position = position + last_direction * 100  # Left movement
+		elif last_direction.x > 0:
+			spawned_rectangle.position = position + last_direction * 200  # Right movement
+		else:  # Up or down
+			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 100  # Slightly to the right
+		
 		get_parent().add_child(spawned_rectangle)
 		var timer = Timer.new()
 		timer.wait_time = 5
 		timer.one_shot = true
 		timer.timeout.connect(_on_timer_timeout)
-
 		add_child(timer)
 		timer.start()
 
+
 func update_rectangle_position():
-	
-	
 	if spawned_rectangle:
-		spawned_rectangle.position = position + last_direction * 50
+		if last_direction.x < 0:
+			spawned_rectangle.position = position + + Vector2(0, 30) + last_direction * 20  # Left movement
+		elif last_direction.x > 0:
+			spawned_rectangle.position = position + Vector2(0, 30) + last_direction * 150  # Right movement
+		elif last_direction.y > 0:  # Up or down
+			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 100  # Slightly to the right
+		elif last_direction.y < 0:  # Up or down
+			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 40  # Slightly to the right
+		else:
+			spawned_rectangle.position = position + last_direction * 50  # Default case
+
 
 func _on_timer_timeout():
 	if spawned_rectangle:
