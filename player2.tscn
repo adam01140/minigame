@@ -12,6 +12,7 @@ radius = 38.0
 height = 82.0
 
 [node name="Player2" type="RigidBody2D"]
+disable_mode = 2
 gravity_scale = 0.0
 script = ExtResource("1_rd1im")
 

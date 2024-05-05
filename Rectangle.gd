@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 # Define collision layers and masks
 const PLAYER_COLLISION_LAYER = 1
@@ -23,13 +23,13 @@ func _process(delta: float) -> void:
 		update_rectangle_position()
 
 func handle_input(motion: Vector2) -> Vector2:
-	if Input.is_action_pressed("player2_right"):
+	if Input.is_action_pressed("ui_right"):
 		motion.x += 1
-	if Input.is_action_pressed("player2_left"):
+	if Input.is_action_pressed("ui_left"):
 		motion.x -= 1
-	if Input.is_action_pressed("player2_down"):
+	if Input.is_action_pressed("ui_down"):
 		motion.y += 1
-	if Input.is_action_pressed("player2_up"):
+	if Input.is_action_pressed("ui_up"):
 		motion.y -= 1
 
 	if motion != Vector2.ZERO:

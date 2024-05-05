@@ -1,17 +1,13 @@
 extends RigidBody2D
 
-@export var speed: int = 400  # Increased speed for better force application
+@export var speed: int = 200  # Speed of the player in pixels per second.
 @export var rectangle_scene = preload("res://Rectangle.tscn")  # Path to the rectangle scene.
 
-func _ready():
-	# Adjust physics properties for better control
-	mass = 1.0  # Ensure the mass is reasonable
-	linear_damp = 0.1  # Lower damping can help with movement fluidity
-	angular_damp = 0.1
-	set_physics_process(true)
 
-func _physics_process(delta: float):
-	var motion = Vector2.ZERO
+
+
+func _process(delta: float) -> void:
+	var motion: Vector2 = Vector2()
 	
 	# Capture player input to determine movement direction.
 	if Input.is_action_pressed("ui_right"):
@@ -22,20 +18,41 @@ func _physics_process(delta: float):
 		motion.y += 1
 	if Input.is_action_pressed("ui_up"):
 		motion.y -= 1
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
-	# Normalize and scale the motion vector
+	# Normalize the motion vector so diagonal movement isn't faster.
 	motion = motion.normalized() * speed * delta
 
-	# Apply the motion as an impulse
-	if motion.length() > 0:
-		apply_central_impulse(motion)
+	# Update the player's position.
+	position += motion
 
-	# Debug output to help diagnose movement issues
-	print("Velocity: ", linear_velocity, " Motion: ", motion)
-
-func check_arena_bounds():
+	# Access the 'Arena' sprite node and check dimensions.
 	var arena_node = get_parent().get_node("Arena") as Sprite2D
 	if arena_node and arena_node.texture:
 		var arena_size = arena_node.texture.get_size()
-		if position.x < 0 or position.x > arena_size.x or position.y < 0 or position.y > arena_size.y:
-			queue_free()  # Remove the player from the scene if they fall off
+		var arena_width = arena_size.x
+		var arena_height = arena_size.y
+
+		# Check if the player has moved outside the bounds of the arena.
+		if position.x < 0 or position.x > arena_width or position.y < 0 or position.y > arena_height:
+			queue_free()  # Remove the player from the scene if they fall off.
