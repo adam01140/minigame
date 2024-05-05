@@ -8,15 +8,17 @@
 [node name="Arena" type="Node2D"]
 
 [node name="inside" parent="." instance=ExtResource("4_uvi5g")]
-position = Vector2(3006, 1702)
+position = Vector2(2870, 1600)
 scale = Vector2(3, 4.337)
 
 [node name="Player1" parent="." instance=ExtResource("1_xpd42")]
 position = Vector2(2430, 1330)
+scale = Vector2(2, 2)
 disable_mode = 1
 
 [node name="Player2" parent="." instance=ExtResource("2_w2bb1")]
 position = Vector2(3557, 1725)
+scale = Vector2(2, 2)
 disable_mode = 1
 
 [node name="Rectangle" parent="." instance=ExtResource("3_2fc8n")]
@@ -25,6 +27,6 @@ disable_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2896, 1617)
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(0.3, 0.24)
 
 [node name="Area2D" type="Area2D" parent="." groups=["inside"]]

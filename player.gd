@@ -14,6 +14,7 @@ var spawned_rectangle2 = null  # Store the rectangle instance
 
 var push2 = Player2.push
 var push1 = 0
+var shoot = 0
 
 func _process(delta: float) -> void:
 	var motion2: Vector2 = Vector2()
@@ -42,8 +43,9 @@ func handle_input(motion2: Vector2) -> Vector2:
 	if motion2 != Vector2.ZERO:
 		last_direction2 = motion2.normalized()
 
-	if Input.is_action_just_pressed("rect_spawn2"):
+	if Input.is_action_just_pressed("rect_spawn2") && shoot == 0:
 		spawn_rectangle2()
+		shoot = 1
 
 	return motion2
 	
@@ -91,6 +93,7 @@ func _on_timer_timeout():
 	if spawned_rectangle2:
 		spawned_rectangle2.queue_free()
 		spawned_rectangle2 = null
+		shoot = 1
 
 	
 func move_player(motion2: Vector2, delta: float) -> void:
@@ -124,6 +127,7 @@ func check_arena_bounds() -> void:
 		var arena_size = arena_node.texture.get_size()
 		if position.x < 0 or position.x > arena_size.x or position.y < 0 or position.y > arena_size.y:
 			queue_free()
+			
 			
 			
 

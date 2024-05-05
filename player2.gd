@@ -6,6 +6,7 @@ var last_direction = Vector2.ZERO  # Variable to store the last direction
 var spawned_rectangle = null  # Store the rectangle instance
 var push = 0
 var push1 = 0
+var shoot = 0
 
 func _process(delta: float) -> void:
 	var motion := Vector2.ZERO
@@ -37,8 +38,9 @@ func handle_input(motion: Vector2) -> Vector2:
 	if motion != Vector2.ZERO:
 		last_direction = motion.normalized()
 
-	if Input.is_action_just_pressed("rect_spawn"):
+	if Input.is_action_just_pressed("rect_spawn") && shoot == 0:
 		spawn_rectangle()
+		shoot = 1
 
 	return motion
 
@@ -123,3 +125,4 @@ func _on_timer_timeout():
 	if spawned_rectangle:
 		spawned_rectangle.queue_free()
 		spawned_rectangle = null
+		shoot = 0
