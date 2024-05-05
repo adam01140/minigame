@@ -19,7 +19,6 @@ func _process(delta: float) -> void:
 	var motion2: Vector2 = Vector2()
 	motion2 = handle_input(motion2)  # Get the updated motion2 vector
 	move_player(motion2, delta)
-	check_arena_bounds()
 	if spawned_rectangle2:
 		update_rectangle_position()
 	
@@ -99,7 +98,10 @@ func move_player(motion2: Vector2, delta: float) -> void:
 	position += motion2
 
 func _on_area_2d_area_entered(area):
-	
+	print("pushing me")
+		
+	if area.is_in_group("inside"):
+		queue_free()
 		
 	if area.is_in_group("block"):
 		if push2 == 1:
@@ -129,3 +131,6 @@ func check_arena_bounds() -> void:
 
 			
 		
+
+
+
