@@ -16,7 +16,7 @@ disable_mode = 2
 gravity_scale = 0.0
 script = ExtResource("1_rd1im")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-2.5, -1.5)
 scale = Vector2(0.984375, 0.921875)
 texture = SubResource("GradientTexture2D_go2uj")
