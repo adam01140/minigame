@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dftqr4bb35dil"]
+
+[ext_resource type="PackedScene" uid="uid://cct6etid465k" path="res://player.tscn" id="1_xpd42"]
+[ext_resource type="PackedScene" uid="uid://bsxk2fy067e7v" path="res://player2.tscn" id="2_w2bb1"]
+[ext_resource type="PackedScene" uid="uid://d0nlnh04mk3lv" path="res://Rectangle.tscn" id="3_2fc8n"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uswol"]
+load_path = "res://.godot/imported/Untitled drawing (1).png-4243bcf7111a01634e30653f98c5ece9.ctex"
+
+[node name="Arena" type="Node2D"]
+
+[node name="Arena" type="Sprite2D" parent="."]
+position = Vector2(1206, 654)
+scale = Vector2(2.33747, 1.7097)
+texture = SubResource("CompressedTexture2D_uswol")
+
+[node name="Player" parent="." instance=ExtResource("1_xpd42")]
+position = Vector2(510, 428)
+disable_mode = 1
+
+[node name="Player2" parent="." instance=ExtResource("2_w2bb1")]
+position = Vector2(904, 552)
+disable_mode = 1
+speed = null
+rectangle_scene_path = null
+
+[node name="Rectangle" parent="." instance=ExtResource("3_2fc8n")]
+position = Vector2(968, 391)
+disable_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1142, 648)
+zoom = Vector2(0.5, 0.5)
