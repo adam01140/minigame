@@ -15,7 +15,8 @@ var spawned_rectangle2 = null  # Store the rectangle instance
 var push2 = Player2.push
 var push1 = 0
 var shoot = 0
-
+var side = 0
+var up = 0
 
 # Preload textures for each direction
 var texture_right = preload("res://right.png")
@@ -40,22 +41,29 @@ func _process(delta: float) -> void:
 func handle_input(motion2: Vector2) -> Vector2:
 	
 	push2 = Player2.push
+	
+	
+	
 	if Input.is_action_pressed("ui_right"):
 		motion2.x += 50
+		side = 1
 		push1 = 1
 		chosen_texture = texture_right
 		update_player_sprite(texture_pright)
 	if Input.is_action_pressed("ui_left"):
+		side = 0
 		motion2.x -= 50
 		push1 = 2
 		chosen_texture = texture_left
 		update_player_sprite(texture_pleft)
 	if Input.is_action_pressed("ui_down"):
+		up = 0
 		motion2.y += 50
 		push1 = 3
 		chosen_texture = texture_down
 		
 	if Input.is_action_pressed("ui_up"):
+		up = 1
 		motion2.y -= 50
 		push1 = 4
 		chosen_texture = texture_up

@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://4xi7o2ecjs2f" path="res://pright.png" id="2_nwfjk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lm1s3"]
-radius = 215.0
-height = 430.0
+radius = 278.0
+height = 572.0
 
 [node name="Player" type="RigidBody2D"]
 disable_mode = 2
