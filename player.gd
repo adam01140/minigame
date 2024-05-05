@@ -76,43 +76,44 @@ func update_player_sprite(texture):
 	else:
 		print("Sprite node not found or not ready")
 
+
+
 func spawn_rectangle2() -> void:
-	if last_direction2 == Vector2.ZERO:
-		return  # Don't spawn if there's no movement direction
+	if spawned_rectangle2 != null:
+		return
 
 	var rectangle_scene2 = load(rectangle_scene2_path)
 	if rectangle_scene2 is PackedScene:
 		spawned_rectangle2 = rectangle_scene2.instantiate() as Node2D
-		# Adjust spawn position based on movement direction
-		if last_direction2.x < 0:
-			spawned_rectangle2.position = position + last_direction2 * 100  # Left movement
-		elif last_direction2.x > 0:
-			spawned_rectangle2.position = position + last_direction2 * 200  # Right movement
-		else:  # Up or down
-			spawned_rectangle2.position = position + Vector2(75, 0) + last_direction2 * 100  # Slightly to the right
-		
+		var sprite_node2 = spawned_rectangle2.get_node("Sprite") as Sprite2D
+		sprite_node2.texture = chosen_texture  # Apply the texture based on the last direction
+		spawned_rectangle2.position = position + last_direction2 * 100
 		get_parent().add_child(spawned_rectangle2)
+
 		var timer = Timer.new()
 		timer.wait_time = 5
 		timer.one_shot = true
 		timer.timeout.connect(_on_timer_timeout)
 		add_child(timer)
 		timer.start()
+		
+		
 
 
 func update_rectangle_position():
 	if spawned_rectangle2:
 		if last_direction2.x < 0:
-			spawned_rectangle2.position = position + Vector2(0, 30) + last_direction2 * 20  # Left movement
+			spawned_rectangle2.position = position + Vector2(0, 70) + last_direction2 * 250  # Left movement
 		elif last_direction2.x > 0:
-			spawned_rectangle2.position = position + Vector2(0, 30) + last_direction2 * 150  # Right movement
+			spawned_rectangle2.position = position + Vector2(0, 70) + last_direction2 * 400  # Right movement
 		elif last_direction2.y > 0:  # Up or down
-			spawned_rectangle2.position = position + Vector2(75, 0) + last_direction2 * 100  # Slightly to the right
+			spawned_rectangle2.position = position + Vector2(75, 0) + last_direction2 * 400  # Slightly to the right
 		elif last_direction2.y < 0:  # Up or down
-			spawned_rectangle2.position = position + Vector2(75, 0) + last_direction2 * 40  # Slightly to the right
-		else:
-			spawned_rectangle2.position = position + last_direction2 * 50  # Default case
-
+			spawned_rectangle2.position = position + Vector2(75, 0) + last_direction2 * 400  # Slightly to the right
+			
+		
+		var sprite_node2 = spawned_rectangle2.get_node("Sprite") as Sprite2D
+		sprite_node2.texture = chosen_texture
 
 func _on_timer_timeout():
 	if spawned_rectangle2:
