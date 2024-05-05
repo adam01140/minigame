@@ -32,22 +32,22 @@ func _process(delta: float) -> void:
 
 func handle_input(motion: Vector2) -> Vector2:
 	if Input.is_action_pressed("player2_right"):
-		motion.x += 1
+		motion.x += 50
 		push = 1
 		chosen_texture = texture_right
 		update_player_sprite(texture_pright)
 	if Input.is_action_pressed("player2_left"):
-		motion.x -= 1
+		motion.x -= 50
 		push = 2
 		chosen_texture = texture_left
 		update_player_sprite(texture_pleft)
 	if Input.is_action_pressed("player2_down"):
-		motion.y += 1
+		motion.y += 50
 		push = 3
 		chosen_texture = texture_down
 		
 	if Input.is_action_pressed("player2_up"):
-		motion.y -= 1
+		motion.y -= 50
 		push = 4
 		chosen_texture = texture_up
 		

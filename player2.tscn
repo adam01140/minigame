@@ -11,6 +11,7 @@ height = 401.0
 disable_mode = 2
 gravity_scale = 0.0
 script = ExtResource("1_rd1im")
+speed = 500.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(1, -1)

@@ -16,6 +16,20 @@ var push2 = Player2.push
 var push1 = 0
 var shoot = 0
 
+
+# Preload textures for each direction
+var texture_right = preload("res://right.png")
+var texture_left = preload("res://left.png")
+var texture_pright = preload("res://pright.png")
+var texture_pleft = preload("res://pleft.png")
+var texture_up = preload("res://up.png")
+var texture_down = preload("res://down.png")
+var chosen_texture = null  # Variable to hold the chosen texture based on direction
+var player_sprite = preload("res://player.tscn")  # Assuming this is your player sprite
+
+
+		
+		
 func _process(delta: float) -> void:
 	var motion2: Vector2 = Vector2()
 	motion2 = handle_input(motion2)  # Get the updated motion2 vector
@@ -27,18 +41,24 @@ func handle_input(motion2: Vector2) -> Vector2:
 	
 	push2 = Player2.push
 	if Input.is_action_pressed("ui_right"):
-		
-		motion2.x += 1
+		motion2.x += 50
 		push1 = 1
+		chosen_texture = texture_right
+		update_player_sprite(texture_pright)
 	if Input.is_action_pressed("ui_left"):
-		motion2.x -= 1
+		motion2.x -= 50
 		push1 = 2
+		chosen_texture = texture_left
+		update_player_sprite(texture_pleft)
 	if Input.is_action_pressed("ui_down"):
-		motion2.y += 1
+		motion2.y += 50
 		push1 = 3
+		chosen_texture = texture_down
+		
 	if Input.is_action_pressed("ui_up"):
+		motion2.y -= 50
 		push1 = 4
-		motion2.y -= 1
+		chosen_texture = texture_up
 
 	if motion2 != Vector2.ZERO:
 		last_direction2 = motion2.normalized()
@@ -50,6 +70,11 @@ func handle_input(motion2: Vector2) -> Vector2:
 	return motion2
 	
 	
+func update_player_sprite(texture):
+	if $Sprite:
+		$Sprite.texture = texture
+	else:
+		print("Sprite node not found or not ready")
 
 func spawn_rectangle2() -> void:
 	if last_direction2 == Vector2.ZERO:
