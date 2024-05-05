@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0nlnh04mk3lv"]
 
-[ext_resource type="Texture2D" uid="uid://cp36bnao7x53e" path="res://icon.svg" id="1_230r0"]
 [ext_resource type="Script" path="res://Rectangle.gd" id="1_ghflu"]
+[ext_resource type="Texture2D" uid="uid://c57n1gid7yaql" path="res://left.png" id="2_7wjsn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l5vk0"]
 size = Vector2(53, 59)
 
-[node name="Rectangle" type="CharacterBody2D" groups=["block"]]
+[node name="Rectangle" type="RigidBody2D" groups=["block"]]
 position = Vector2(71, 36)
 script = ExtResource("1_ghflu")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-72, -37.5)
 scale = Vector2(0.367188, 0.414062)
-texture = ExtResource("1_230r0")
+texture = ExtResource("2_7wjsn")
 
 [node name="Area2D" type="Area2D" parent="." groups=["block"]]
 

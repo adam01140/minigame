@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 # Define collision layers and masks
 const PLAYER_COLLISION_LAYER = 1

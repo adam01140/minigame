@@ -20,10 +20,14 @@ disable_mode = 1
 position = Vector2(3557, 1725)
 scale = Vector2(2, 2)
 disable_mode = 1
+speed = 200.0
+rectangle_scene_path = "res://Rectangle.tscn"
 
 [node name="Rectangle" parent="." instance=ExtResource("3_2fc8n")]
 position = Vector2(346, -442)
 disable_mode = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="Rectangle"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2896, 1617)
