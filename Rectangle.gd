@@ -15,13 +15,13 @@ func _process(delta: float) -> void:
 
 func handle_input(motion: Vector2) -> Vector2:
 	if Input.is_action_pressed("ui_right"):
-		motion.x += 1
+		motion.x += 0
 	if Input.is_action_pressed("ui_left"):
-		motion.x -= 1
+		motion.x -= 0
 	if Input.is_action_pressed("ui_down"):
-		motion.y += 1
+		motion.y += 0
 	if Input.is_action_pressed("ui_up"):
-		motion.y -= 1
+		motion.y -= 0
 
 
 	return motion
