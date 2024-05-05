@@ -5,6 +5,7 @@ extends RigidBody2D
 
 
 
+
 func _process(delta: float) -> void:
 	var motion: Vector2 = Vector2()
 	

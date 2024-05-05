@@ -1,7 +1,16 @@
 extends RigidBody2D
 
+# Define collision layers and masks
+const PLAYER_COLLISION_LAYER = 1
+const PLAYER_COLLISION_MASK = 1
+
 @export var speed: float = 200
 @export var rectangle_scene_path: String = "res://Rectangle.tscn"
+
+func _ready():
+	# Configure collision layer and mask
+	set_collision_layer_value(PLAYER_COLLISION_LAYER, true)
+	set_collision_mask_value(PLAYER_COLLISION_MASK, true)
 
 func _process(delta: float) -> void:
 	var motion := Vector2.ZERO
@@ -12,17 +21,19 @@ func _process(delta: float) -> void:
 func handle_input(motion: Vector2) -> Vector2:
 	if Input.is_action_pressed("player2_right"):
 		motion.x += 1
+		check_arena_bounds()
 	if Input.is_action_pressed("player2_left"):
 		motion.x -= 1
+		check_arena_bounds()
 	if Input.is_action_pressed("player2_down"):
 		motion.y += 1
+		check_arena_bounds()
 	if Input.is_action_pressed("player2_up"):
 		motion.y -= 1
-	if Input.is_action_just_pressed("player2_up"):
+		check_arena_bounds()
+	if Input.is_action_just_pressed("rect_spawn"):
 		spawn_rectangle()
-		# motion.y += 1 # This line seems redundant and could cause unexpected movement.
 	return motion  # Return the updated motion vector
-
 
 func move_player(motion: Vector2, delta: float) -> void:
 	motion = motion.normalized() * speed * delta
@@ -51,3 +62,11 @@ func spawn_rectangle() -> void:
 		var rectangle: Node2D = rectangle_scene.instantiate() as Node2D  # Explicitly cast to Node2D.
 		rectangle.position = position + direction * 50  # Adjust the 50 to your desired distance
 		get_parent().add_child(rectangle)
+
+# Collision detection function
+func _on_collision_entered(body):
+	# Check if the colliding body is another player
+	if body.is_in_group("player"):
+		# Respond to the collision (e.g., stop movement, apply forces)
+		# For example:
+		linear_velocity = Vector2.ZERO

@@ -7,7 +7,7 @@ size = Vector2(53, 59)
 
 [node name="Rectangle" type="RigidBody2D"]
 position = Vector2(100, 67)
-mass = 0.01
+mass = 100.0
 gravity_scale = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
