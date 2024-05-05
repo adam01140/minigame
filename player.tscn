@@ -1,11 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cct6etid465k"]
+[gd_scene load_steps=4 format=3 uid="uid://cct6etid465k"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_cvtf2"]
-
-[sub_resource type="Gradient" id="Gradient_8grf8"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ong8v"]
-gradient = SubResource("Gradient_8grf8")
+[ext_resource type="Texture2D" uid="uid://4xi7o2ecjs2f" path="res://pright.png" id="2_nwfjk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lm1s3"]
 radius = 46.0
@@ -17,9 +13,9 @@ gravity_scale = 0.0
 script = ExtResource("1_cvtf2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(-1.00001, -7.62939e-06)
-scale = Vector2(0.265625, 53)
-texture = SubResource("GradientTexture1D_ong8v")
+position = Vector2(13.6563, -1.76559)
+scale = Vector2(0.477, 0.484)
+texture = ExtResource("2_nwfjk")
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
 
