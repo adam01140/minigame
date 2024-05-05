@@ -101,7 +101,16 @@ func spawn_rectangle() -> void:
 
 func update_rectangle_position():
 	if spawned_rectangle:
-		spawned_rectangle.position = position + last_direction * 100
+		if last_direction.x < 0:
+			spawned_rectangle.position = position + Vector2(0, 70) + last_direction * 250  # Left movement
+		elif last_direction.x > 0:
+			spawned_rectangle.position = position + Vector2(0, 70) + last_direction * 400  # Right movement
+		elif last_direction.y > 0:  # Up or down
+			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 400  # Slightly to the right
+		elif last_direction.y < 0:  # Up or down
+			spawned_rectangle.position = position + Vector2(75, 0) + last_direction * 400  # Slightly to the right
+			
+		
 		var sprite_node = spawned_rectangle.get_node("Sprite") as Sprite2D
 		sprite_node.texture = chosen_texture
 		
