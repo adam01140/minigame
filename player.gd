@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 @export var speed: int = 200  # Speed of the player in pixels per second.
 @export var rectangle_scene = preload("res://Rectangle.tscn")  # Path to the rectangle scene.

@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 @export var speed: float = 200
 @export var rectangle_scene_path: String = "res://Rectangle.tscn"
@@ -22,6 +22,7 @@ func handle_input(motion: Vector2) -> Vector2:
 		spawn_rectangle()
 		# motion.y += 1 # This line seems redundant and could cause unexpected movement.
 	return motion  # Return the updated motion vector
+
 
 func move_player(motion: Vector2, delta: float) -> void:
 	motion = motion.normalized() * speed * delta
